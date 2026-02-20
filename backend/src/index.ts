@@ -35,7 +35,7 @@ const httpServer = createServer(app);
 // Initialize Socket.IO
 const io = new SocketIOServer(httpServer, {
   cors: {
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    origin: ['https://kubesystems.vercel.app', 'http://localhost:3000'],
     methods: ['GET', 'POST'],
     credentials: true
   }
