@@ -8,7 +8,6 @@
 
 KUBE gives Africa **"eyes in the sky + brains in the cloud"** to protect animals, prevent losses, and improve productivity.
 
----
 
 ## 🚀 Modules
 
@@ -29,7 +28,6 @@ KUBE gives Africa **"eyes in the sky + brains in the cloud"** to protect animals
 - Vegetation health analysis  
 - Climate risk insights  
 
----
 
 ## 🏗️ Tech Stack
 
@@ -37,7 +35,7 @@ KUBE gives Africa **"eyes in the sky + brains in the cloud"** to protect animals
 **Backend:** Node.js, Express, PostgreSQL, Prisma  
 **Infrastructure:** AWS, Supabase, Cloudflare  
 
----
+
 
 ## 🛠️ Setup
 
@@ -57,7 +55,6 @@ npm run dev
 - Frontend → http://localhost:3000  
 - Backend → http://localhost:5000  
 
----
 
 ## 📁 Structure
 
@@ -70,7 +67,7 @@ KUBE-WEB/
 └── package.json
 ```
 
----
+
 
 ## 🌟 Impact
 
@@ -79,12 +76,11 @@ KUBE-WEB/
 - Improved grazing and land use  
 - Stronger rural economies  
 
----
 
 ## 📄 License
 
 Copyright © 2024–2026 KUBE Platform.
 
----
+
 
 **Built for Africa’s future**
