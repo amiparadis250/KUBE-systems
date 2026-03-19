@@ -242,72 +242,14 @@ function RadarWidget({ size = 110 }: { size?: number }) {
     </div>
   )
 }
-
 function CameraFeed({ drone, flight }: { drone: Drone | null; flight: ActiveFlight | null }) {
-  const [detections, setDetections] = useState<{ x: number; y: number; label: string }[]>([])
-
-  useEffect(() => {
-    if (!flight) return
-    const iv = setInterval(() => {
-      if (Math.random() > 0.7) {
-        setDetections([{ x: 15 + Math.random() * 70, y: 15 + Math.random() * 70, label: ['Animal', 'Vehicle', 'Structure', 'Anomaly'][Math.floor(Math.random() * 4)] }])
-        setTimeout(() => setDetections([]), 2000)
-      }
-    }, 3000)
-    return () => clearInterval(iv)
-  }, [flight])
-
-  if (!flight || !drone) {
-    return (
-      <div className="h-full flex items-center justify-center bg-[#020408] rounded-xl border border-[#2872A1]/15">
-        <div className="text-center">
-          <Camera className="w-14 h-14 mx-auto mb-3" style={{ color: `${OCEAN}30` }} />
-          <p className="text-sm font-mono" style={{ color: `${OCEAN}60` }}>NO ACTIVE FEED</p>
-          <p className="text-xs font-mono mt-1" style={{ color: `${OCEAN}30` }}>Launch a mission to view live feed</p>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className="relative h-full bg-[#020408] rounded-xl border border-[#2872A1]/30 overflow-hidden">
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #0a1a0a 0%, #0d200d 30%, #112211 60%, #0a150a 100%)', filter: 'brightness(0.8)' }} />
-      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(rgba(0,255,100,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,100,0.3) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-      <div className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-green-400/40 to-transparent animate-scan-line" />
-      {/* Crosshair */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24">
-        <div className="absolute top-0 left-1/2 -translate-x-px w-0.5 h-7 bg-[#2872A1]/50" />
-        <div className="absolute bottom-0 left-1/2 -translate-x-px w-0.5 h-7 bg-[#2872A1]/50" />
-        <div className="absolute left-0 top-1/2 -translate-y-px w-7 h-0.5 bg-[#2872A1]/50" />
-        <div className="absolute right-0 top-1/2 -translate-y-px w-7 h-0.5 bg-[#2872A1]/50" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 border rounded-full" style={{ borderColor: `${OCEAN}60` }} />
-        <div className="absolute top-2 left-2 w-3 h-3 border-t border-l" style={{ borderColor: `${OCEAN}40` }} />
-        <div className="absolute top-2 right-2 w-3 h-3 border-t border-r" style={{ borderColor: `${OCEAN}40` }} />
-        <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l" style={{ borderColor: `${OCEAN}40` }} />
-        <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r" style={{ borderColor: `${OCEAN}40` }} />
-      </div>
-      {detections.map((d, i) => (
-        <motion.div key={i} initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }}
-          className="absolute border-2 border-red-400 rounded" style={{ left: `${d.x}%`, top: `${d.y}%`, width: 60, height: 45 }}>
-          <span className="absolute -top-5 left-0 text-[9px] text-red-400 font-mono bg-black/60 px-1">{d.label}</span>
-        </motion.div>
-      ))}
-      <div className="absolute top-3 left-3 flex items-center gap-2">
-        <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-        <span className="text-xs text-red-400 font-mono font-bold">REC</span>
-        <span className="text-[10px] text-white/30 font-mono ml-2">{new Date().toLocaleTimeString('en-US', { hour12: false })}</span>
-      </div>
-      <div className="absolute top-3 right-3 text-[10px] font-mono" style={{ color: `${OCEAN}CC` }}>{drone.id} / {drone.name}</div>
-      <div className="absolute bottom-0 left-0 right-0 bg-black/80 backdrop-blur-sm px-4 py-2.5 flex items-center justify-between text-[10px] font-mono border-t border-white/5">
-        <span className="text-green-400">ALT {flight.telemetry.altitude.toFixed(0)}m</span>
-        <span style={{ color: OCEAN }}>SPD {flight.telemetry.speed.toFixed(1)} km/h</span>
-        <span className="text-yellow-400">BAT {flight.telemetry.battery.toFixed(0)}%</span>
-        <span className="text-purple-400">HDG {flight.telemetry.heading.toFixed(0)}&deg;</span>
-        <span className="text-white/40">{flight.telemetry.gpsLat.toFixed(4)}, {flight.telemetry.gpsLng.toFixed(4)}</span>
-      </div>
+    <div className="relative w-full h-full min-h-0 rounded-xl border border-[#2872A1]/30 overflow-hidden bg-black">
+      <video src="https://res.cloudinary.com/dv9cz01fi/video/upload/product/kube.f136_xlkwue.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
     </div>
   )
 }
+
 
 function TelemetryGauge({ label, value, max, unit, color }: { label: string; value: number; max: number; unit: string; color: string }) {
   const pct = Math.min((value / max) * 100, 100)
@@ -996,8 +938,8 @@ export default function DroneControlCenter() {
               )}
             </div>
 
-            <div className="flex-1 flex flex-col">
-              <div className="flex-1 p-4">
+            <div className="flex-1 flex flex-col min-h-0">
+              <div className="flex-1 p-4 min-h-0">
                 <CameraFeed drone={watchedDrone} flight={watchedFlight} />
               </div>
               <div className="h-36 bg-[#0A1628]/80 backdrop-blur-sm border-t overflow-y-auto p-3" style={{ borderColor: `${OCEAN}15` }}>
